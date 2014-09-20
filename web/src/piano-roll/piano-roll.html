@@ -1,3 +1,16 @@
-<div>
-    The Piano Roll!
+<div id="container">
+    <div id="piano_roll">
+        <ul class="octave" data-octave="0">
+            <li ng-repeat="key in keys" ng-class="key.keyClass" ng-attr-title="{{key.name}}">&nbsp;</li>
+        </ul>
+    </div>
+    <div id="midi_editor">
+        <ul class="octave" data-octave="0">
+            <li ng-repeat="key in keys" ng-class="key.rowClass" ng-attr-title="{{key.name}}">
+                <div ng-repeat="i in getNumber(numMeasures) track by $index" class="measure">
+                    <p ng-repeat="i in getNumber(beatsPerMeasure) track by $index" class="beat">&nbsp;</p>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>

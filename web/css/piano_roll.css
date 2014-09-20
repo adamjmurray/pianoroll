@@ -1,0 +1,76 @@
+#piano_roll {
+    padding: 0;
+    margin: 0;
+    min-width: 90px;
+    max-width: 90px;
+    float: left;
+}
+
+#piano_roll .octave,
+#midi_editor .octave {
+    list-style-type: none;
+    border-bottom: 2px solid black;
+}
+
+#piano_roll .key,
+#midi_editor .row {
+    clear: both;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    height: 2em;
+}
+
+
+#piano_roll .key {
+    border-right: 2px solid gray;
+    border-left: 2px solid gray;
+    background-color: #fff;
+}
+#piano_roll .key:hover {
+    background-color: #ddd;
+}
+#piano_roll .sharp.key {
+    background-color: #000;
+}
+#piano_roll .sharp.key:hover {
+    background-color: #555;
+}
+
+#midi_editor {
+    width: calc(100% - 90px);
+    float: left;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+#midi_editor .row:hover .measure {
+    background-color: #999;
+}
+
+#midi_editor .measure {
+    width: 24%;
+    float:left;
+    border-right: 2px solid gray;
+    margin: 0;
+    height: 100%;
+}
+#midi_editor .measure:nth-child(odd) {
+    background-color: #9090a9;
+}
+#midi_editor .measure:nth-child(even) {
+    background-color: #80a0b0;
+}
+
+#midi_editor .measure .beat {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    min-width: 24.7%;
+    float:left;
+    border-right: 1px solid darkgray;
+    height: 100%;
+}
+#midi_editor .measure .beat:hover {
+    background-color: #dddd88;
+}
