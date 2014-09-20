@@ -14,8 +14,7 @@ var transportDirective = function($compile, $rootScope, $timeout) {
             var $playBtn = $elem.find('.play');
 
             $playBtn.click(function() {
-                // TODO: update to rootScope.track.beats
-                $rootScope.playbackEngine.play( $rootScope.midiData );
+                $rootScope.playbackEngine.play( $rootScope.track.notes );
             });
         }
 

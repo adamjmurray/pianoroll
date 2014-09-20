@@ -7,7 +7,7 @@ var Note = function (noteData, beat) {
     var pitchInfo = midiToNote(noteData.pitch);
 
     return {
-        beat: beat,
+        beat: parseFloat(beat), // Beat was a string key in the original data structure coming out of the MIDIFileReader. Ensure it's a number.
         midiValue: noteData.pitch,
         velocity: noteData.velocity,
         duration: noteData.duration,
