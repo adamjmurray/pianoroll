@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<div id="drop_zone" style="border: 1px solid black; height: 300px;">Drop files here</div>
+<div id="drop_zone" style="border: 1px solid black; height: 150px;">Drop files here</div>
 <output id="list"></output>
 
 
@@ -23,23 +23,24 @@ function handleFileSelect(evt) {
     var files = evt.dataTransfer.files; // FileList object.
     var file = files[0];
 
-    document.getElementById('list').innerHTML =
+    var output =
         '<strong>' + escape(file.name) + '</strong> (' + (file.type || 'n/a') + ') - ' +
         file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a');
 
+    var midi = new MIDIFileReader(new Html5FileStream(file));
 
+    midi.read(function() {
+        // Now we should have midi.tracks data structure we can use to populate our piano roll
 
-//    midi = new MIDIFileReader(new NodeFileStream(filepath));
-//
-//    midi.read(function() {
-//        console.log("Tracks:");
-//        console.log(JSON.stringify(midi.tracks, null, 2));
-//        console.log("MIDI format type: " + midi.formatType);
-//        console.log("Number of tracks: " + midi.numTracks);
-//        return console.log("Time division: " + midi.timeDiv);
-//    });
+        console.log("Tracks:");
+        console.log(JSON.stringify(midi.tracks, null, 2));
+        console.log("MIDI format type: " + midi.formatType);
+        console.log("Number of tracks: " + midi.numTracks);
+        console.log("Time division: " + midi.timeDiv);
 
-
+        output += '<br/><br/><pre>' + JSON.stringify(midi.tracks, null, 2) + '</pre>';
+        document.getElementById('list').innerHTML = output;
+    });
 }
 
 function handleDragOver(evt) {

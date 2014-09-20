@@ -33,7 +33,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-var MIDIFileReader, NodeFileStream, filepath, midi;
+var MIDIFileReader, Html5FileStream, filepath, midi;
 
 MIDIFileReader = (function() {
   var CHANNEL_AFTERTOUCH, CHANNEL_PREFIX, CONTROLLER, COPYRIGHT, CUE_POINT, END_OF_TRACK, HEADER_CHUNK_ID, HEADER_CHUNK_SIZE, INSTRUMENT_NAME, KEY_SIGNATURE, KEY_VALUE_TO_NAME, LYRICS, MARKER, META_EVENT, MICROSECONDS_PER_MINUTE, NOTE_AFTERTOUCH, NOTE_OFF, NOTE_ON, PITCH_BEND, PROGRAM_CHANGE, SEQ_NAME, SEQ_NUMBER, SEQ_SPECIFIC, SMPTE_OFFSET, SYSEX_CHUNK, SYSEX_EVENT, TEMPO, TEXT, TIME_SIGNATURE, TRACK_CHUNK_ID;
@@ -476,66 +476,80 @@ MIDIFileReader = (function() {
 
 })();
 
-NodeFileStream = (function() {
-  var FS;
+Html5FileStream = (function() {
 
-  // FS = require('fs');
-
-  function NodeFileStream(filepath) {
-    this.filepath = filepath;
+  function Html5FileStream(file) {
+    this.file = file;
   }
 
-  NodeFileStream.prototype.open = function(onSuccess, onError) {
-    console.log("Reading " + this.filepath);
-    FS.readFile(this.filepath, (function(_this) {
-      return function(error, buffer) {
-        if (error) {
-          if (onError) {
-            onError(error);
-          } else {
-            throw error;
-          }
-        }
-        _this._buffer = buffer;
-        _this.byteOffset = 0;
-        if (onSuccess) {
-          return onSuccess();
-        }
-      };
-    })(this));
+  Html5FileStream.prototype.open = function(onSuccess, onError) {
+    var _this = this;
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      // console.log(e);
+      // TODO: validate the file loaded ok, call onError() if appropriate
+
+      var binaryString = e.target.result;
+      var buffer = [];
+
+      for(var i=0; i<binaryString.length; i++) {
+        buffer.push( binaryString.charCodeAt(i) );
+      }
+
+      _this.buffer = buffer;
+      _this.byteOffset = 0;
+      _this.endByte = binaryString.length;
+
+
+      if (onSuccess) {
+        return onSuccess();
+      }
+    };
+
+    console.log("Reading " + this.file.name);
+
+    reader.readAsBinaryString(this.file);
   };
 
-  NodeFileStream.prototype.uInt32BE = function() {
-    var data;
-    data = this._buffer.readUInt32BE(this.byteOffset);
-    this.byteOffset += 4;
+  Html5FileStream.prototype.uInt32BE = function() {
+    var data, _i;
+    data = 0;
+    for (_i = 0; _i < 4; _i++) {
+      // Note: might return a bogus number (probably NaN) if we prematurely hit the end of the buffer
+      data = (data << 8) + this.buffer[this.byteOffset];
+      this.byteOffset++;
+    }
     return data;
   };
 
-  NodeFileStream.prototype.uInt16BE = function() {
-    var data;
-    data = this._buffer.readUInt16BE(this.byteOffset);
-    this.byteOffset += 2;
+  Html5FileStream.prototype.uInt16BE = function() {
+    var data, _i;
+    data = 0;
+    for (_i = 0; _i < 2; _i++) {
+      data = (data << 8) + this.buffer[this.byteOffset];
+      this.byteOffset++;
+    }
     return data;
   };
 
-  NodeFileStream.prototype.uInt8 = function() {
+  Html5FileStream.prototype.uInt8 = function() {
     var data;
     if (this.nextByte) {
       data = this.nextByte;
       this.nextByte = null;
     } else {
-      data = this._buffer.readUInt8(this.byteOffset);
-      this.byteOffset += 1;
+      data = this.buffer[this.byteOffset];
+      this.byteOffset++;
     }
     return data;
   };
 
-  NodeFileStream.prototype.feedByte = function(byte) {
+  Html5FileStream.prototype.feedByte = function(byte) {
     this.nextByte = byte;
   };
 
-  return NodeFileStream;
+  return Html5FileStream;
 
 })();
 
