@@ -96,7 +96,7 @@ var pianoRollDirective = function ($compile,
                 $scope.keys.push({
                     name: name,
                     keyClass: (function(){
-                        var str = name;
+                        var str = name.slice(0,1);
                         if (name.charAt(1) === '#') {
                             str += " sharp";
                         }
@@ -104,7 +104,7 @@ var pianoRollDirective = function ($compile,
                         return str+" key";
                     })(),
                     rowClass: (function(){
-                        var str = name;
+                        var str = name.slice(0,1);
                         if (name.charAt(1) === '#') {
                             str += " sharp";
                         }

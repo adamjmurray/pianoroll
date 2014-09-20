@@ -12,7 +12,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
             // TODO: dragging the note around should update the model
             var $noteDiv = $elem.children().first();
             $noteDiv.draggable({ containment: "#midi_editor", distance: 10, grid: [1, 30], stop: onDrag});
-            $noteDiv.resizable({containment: "#midi_editor", handles: "e", stop: onResize});
+            $noteDiv.resizable({ containment: "#midi_editor", handles: "e", stop: onResize});
 
             function onDrag(event, ui) {
                 console.log(ui);
@@ -33,12 +33,18 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var velocity = $scope.data.velocity;
                 var duration = $scope.data.duration;
 
+                // TODO: once octaves are implemented in the html, filter by octave as well
+                var pitchRow = $("#layout ."+pitch);
+
+                // Assumes beats in the layout are 1/4 notes
+                var wholeNoteWidth = $("#layout .measure:first").width();
+
                 // TODO: use velocity to change the color of the element
 
-                var noteWidth = $rootScope.noteWidth; // TODO: we need some way of knowing the width of a beat in the UI
-                var noteHeight = 30; // and some way of knowing the height of a "pitch row" in the piano roll
+                var noteWidth = duration * wholeNoteWidth;
+                var noteHeight = pitchRow.height(); // and some way of knowing the height of a "pitch row" in the piano roll
                 var x = 0; // TODO: calculate x position from the beat
-                var y = 0; // TODO: calculate y position from the pitch. I think setting bottom style to pitch * 30 will do it.
+                var y = pitchRow.position().top;
 
                 return {
                     left: x + "px",
