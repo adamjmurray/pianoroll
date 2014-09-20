@@ -15,16 +15,15 @@ var noteDirective = function($compile, $rootScope, $timeout) {
             $noteDiv.resizable({ containment: "#midi_editor", handles: "e", stop: onResize});
 
             function onDrag(event, ui) {
-                console.log(ui);
-//
-//                ui.position
-//                var beat = 1;
-                //$scope.data.beat = beat;
-                //$scope.data.
-            }
+                var totalHeight = $("#layout").height();
 
-            function onResize(event, ui) {
-
+                var beat = ui.position.left/$rootScope.noteWidth;
+                var midiNote = parseInt((((totalHeight - ui.position.top) / 30) -1));
+                var pitchData = midiToNote(midiNote);
+                $scope.data.beat = beat;
+                $scope.data.pitch = pitchData[0];
+                $scope.data.octave = pitchData[1];
+                $scope.data.midiValue = midiNote;
             }
 
             $scope.getPosition = function() {
@@ -35,19 +34,14 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var duration = $scope.data.duration;
 
 
-                var octaveContainer = $("#layout .octave:nth-child("+octave+")");
+                var octaveContainer = $("#layout .octave:nth-child("+($rootScope.numOctaves - octave - 1)+")");
                 var pitchRow = octaveContainer.find("[title='"+pitch+"']");
-
-                // Assumes beats in the layout are 1/4 notes
-                var wholeNoteWidth = $("#layout .measure:first").width();
-
-                var beatPosition = beat / $rootScope.track.measureDuration;
 
                 // TODO: use velocity to change the color of the element
 
-                var noteWidth = duration * wholeNoteWidth;
+                var noteWidth = duration * $rootScope.noteWidth;
                 var noteHeight = pitchRow.height(); // and some way of knowing the height of a "pitch row" in the piano roll
-                var x = wholeNoteWidth * beatPosition;
+                var x = $rootScope.noteWidth * beat;
                 var y = pitchRow.position().top;
 
                 return {
@@ -57,6 +51,12 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                     height: noteHeight + "px"
                 }
             };
+
+            function onResize(event, ui) {
+
+                var duration = ui.size.width / $rootScope.noteWidth;
+                $scope.data.duration = duration;
+            }
         }
 
     }

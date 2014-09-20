@@ -88,6 +88,7 @@ var pianoRollDirective = function ($compile,
 
             $scope.beatsPerMeasure = $rootScope.track.timeSignature[0];
             $scope.numMeasures = 4;
+            $rootScope.numOctaves = 11;
 
             $scope.keys = [];
             for (var i=_NOTE_COUNT-1; i >= 0; i--) {
