@@ -1,0 +1,31 @@
+[
+  {
+    "0": [
+      {
+        "type": "note",
+        "pitch": 60,
+        "velocity": 95,
+        "duration": 1,
+        "channel": 1
+      }
+    ],
+    "1": [
+      {
+        "type": "note",
+        "pitch": 62,
+        "velocity": 95,
+        "duration": 1,
+        "channel": 1
+      }
+    ],
+    "2": [
+      {
+        "type": "note",
+        "pitch": 64,
+        "velocity": 95,
+        "duration": 1,
+        "channel": 1
+      }
+    ]
+  }
+]
