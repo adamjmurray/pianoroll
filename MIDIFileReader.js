@@ -479,7 +479,7 @@ MIDIFileReader = (function() {
 NodeFileStream = (function() {
   var FS;
 
-  FS = require('fs');
+  // FS = require('fs');
 
   function NodeFileStream(filepath) {
     this.filepath = filepath;
@@ -539,18 +539,3 @@ NodeFileStream = (function() {
 
 })();
 
-filepath = process.argv[2];
-
-if (!filepath) {
-  throw 'MIDI input file path is required';
-}
-
-midi = new MIDIFileReader(new NodeFileStream(filepath));
-
-midi.read(function() {
-  console.log("Tracks:");
-  console.log(JSON.stringify(midi.tracks, null, 2));
-  console.log("MIDI format type: " + midi.formatType);
-  console.log("Number of tracks: " + midi.numTracks);
-  return console.log("Time division: " + midi.timeDiv);
-});
