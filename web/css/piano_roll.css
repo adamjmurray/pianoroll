@@ -4,12 +4,29 @@
     min-width: 90px;
     max-width: 90px;
     float: left;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#midi_editor {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #piano_roll .octave,
 #midi_editor .octave {
     list-style-type: none;
     border-bottom: 2px solid black;
+    margin-bottom: 0px;
 }
 
 #piano_roll .key,
@@ -51,11 +68,10 @@
 }
 
 #midi_editor .measure {
-    width: 24%;
-    float:left;
     border-right: 2px solid gray;
     margin: 0;
     height: 100%;
+    display: table-cell;
 }
 #midi_editor .measure:nth-child(odd) {
     background-color: #9090a9;
@@ -67,11 +83,10 @@
 #midi_editor .measure .beat {
     display: inline-block;
     margin: 0;
-    padding: 0;
-    min-width: 24.7%;
-    float:left;
     border-right: 1px solid darkgray;
-    height: 100%;
+    height: 30px;
+    width: 40px;
+    cursor: pointer;
 }
 #midi_editor .measure .beat:hover {
     background-color: #dddd88;
@@ -81,4 +96,20 @@
     position: absolute;
     background: deepskyblue;
     border: 1px solid black;
+}
+#midi_editor .note:hover {
+    background-color: #00498f;
+}
+
+
+#midi_editor .octave {
+    display: table;
+}
+#midi_editor .key {
+    display: table-row;
+}
+
+#zoomSelector {
+    width: 200px;
+    display: inline-block;
 }

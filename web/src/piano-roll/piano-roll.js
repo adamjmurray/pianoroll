@@ -9,6 +9,39 @@ var pianoRollDirective = function ($compile,
         },
         templateUrl:"/src/piano-roll/piano-roll.html",
         link: function ($scope) {
+
+            $scope.addNote = function(measure, beatNum, key, octave) {
+                var beat = measure * $scope.beatsPerMeasure + beatNum;
+                var pitch = noteToMidi(key.name, octave);
+
+                if (!$rootScope.midiData[0][beat]) {
+                    $rootScope.midiData[0][beat] = [];
+                }
+                $rootScope.midiData[0][beat] = $rootScope.midiData[0][beat].concat(
+                    {
+                        "type": "note",
+                        "pitch": pitch,
+                        "velocity": 100,
+                        "duration": 1,
+                        "channel": 1
+                    });
+            };
+
+            $scope.zoomLevel = 100;
+            $scope.noteStyle = {
+                width: 40 + "px"
+            };
+            $rootScope.noteWidth = 40;
+
+            $scope.$watch("zoomLevel", function() {
+                var editorWidth = $("#midi_editor").width();
+                var newRowWidth = editorWidth * ($scope.zoomLevel / 100);
+                var numBeats = $scope.numMeasures * $scope.beatsPerMeasure;
+                var noteWidth = newRowWidth / numBeats;
+                $scope.noteStyle.width = noteWidth + "px"
+                $rootScope.noteWidth = noteWidth;
+            });
+            
             $rootScope.midiData = [
                 {
                     "0": [
@@ -26,7 +59,8 @@ var pianoRollDirective = function ($compile,
                             "pitch": 60,
                             "velocity": 95,
                             "duration": 1,
-                            "channel": 1
+                            "channel": 1,
+                            "beat": 5.5
                         }
                     ],
                     "1": [
@@ -83,7 +117,7 @@ var pianoRollDirective = function ($compile,
             $scope.getNumber = function (num) {
                 var array = [];
                 for (var i=0; i < num; i++) {
-                    array[i] = 1;
+                    array[i] = i;
                 }
                 return array;
             };

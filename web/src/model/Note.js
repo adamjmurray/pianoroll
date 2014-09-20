@@ -3,10 +3,11 @@
 var _NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 var _NOTE_COUNT = _NOTE_NAMES.length;
 
-var Note = function (noteData) {
+var Note = function (noteData, beat) {
     var pitchInfo = midiToNote(noteData.pitch);
 
     return {
+        beat: beat,
         midiValue: noteData.pitch,
         velocity: noteData.velocity,
         duration: noteData.duration,
