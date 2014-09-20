@@ -14,6 +14,20 @@ var pianoRollDirective = function ($compile,
             $scope.beatsPerMeasure = 4;
             $scope.numMeasures = 4;
 
+
+
+            $scope.getPosition = function () {
+                var beatWidth = 56;
+                var noteHeight = 30;
+
+                return {
+                    top: noteHeight * 5 + "px",
+                    left: beatWidth * 5 + "px",
+                    width: beatWidth + "px",
+                    height: noteHeight + "px"
+                }
+            };
+
             $scope.midi = [
                 {
                     "0": [
@@ -115,7 +129,7 @@ var pianoRollDirective = function ($compile,
                     array[i] = 1;
                 }
                 return array;
-            }
+            };
         }
 
 
