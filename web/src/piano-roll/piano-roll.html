@@ -5,17 +5,19 @@
         </ul>
     </div>
     <div id="midi_editor">
-        <ul class="octave" data-octave="0">
-            <li ng-repeat="key in keys" ng-class="key.rowClass" ng-attr-title="{{key.name}}">
-                <div ng-repeat="i in getNumber(numMeasures) track by $index" class="measure">
-                    <p ng-repeat="i in getNumber(beatsPerMeasure) track by $index" class="beat">&nbsp;</p>
-                </div>
-            </li>
-        </ul>
+        <div id="layout">
+            <ul class="octave" data-octave="0">
+                <li ng-repeat="key in keys" ng-class="key.rowClass" ng-attr-title="{{key.name}}">
+                    <div ng-repeat="i in getNumber(numMeasures) track by $index" class="measure">
+                        <p ng-repeat="i in getNumber(beatsPerMeasure) track by $index" class="beat">&nbsp;</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-
-        <note beat="0" data="midi[0]['0'][0]"></note> <!-- hard-coded to load the first note of the first beat of the first track -->
-
+        <div id="overlay">
+            <note beat="0" data="midi[0]['0'][0]"></note> <!-- hard-coded to load the first note of the first beat of the first track -->
+        </div>
     </div>
     <div style="clear:both;"></div>
 </div>
