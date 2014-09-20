@@ -3,7 +3,7 @@
 // Does not support tempo/time-signature changes (yet)
 var Track = function (midiTrackData) {
     var _track = {
-        beats: [],
+        beats: {},
         bpm: 120,
         timeSignature: [4,4]
     };
@@ -25,7 +25,7 @@ var Track = function (midiTrackData) {
                 _track.timeSignature = [noteData.numerator, noteData.denominator];
             }
         }
-        _track.beats.push(beat);
+        _track.beats[i] = beat;
     }
 
     return _track;

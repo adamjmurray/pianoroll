@@ -16,7 +16,11 @@
         </div>
 
         <div id="overlay">
-            <note beat="0" data="midi[0]['0'][0]"></note> <!-- hard-coded to load the first note of the first beat of the first track -->
+            <div ng-repeat="(beatIndex, beat) in $root.track.beats">
+
+                <note beat="beatIndex" data="note" ng-repeat="note in beat"></note> <!-- hard-coded to load the first note of the first beat of the first track -->
+
+            </div>
         </div>
     </div>
     <div style="clear:both;"></div>

@@ -10,6 +10,7 @@ var Note = function (noteData) {
         midiValue: noteData.pitch,
         velocity: noteData.velocity,
         duration: noteData.duration,
+        release: noteData.release,
         pitch: pitchInfo[0],
         octave: pitchInfo[1]
     };
