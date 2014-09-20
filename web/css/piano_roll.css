@@ -17,7 +17,7 @@
     clear: both;
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
-    height: 2em;
+    height: 30px;
     margin: 0px;
 }
 
@@ -79,5 +79,6 @@
 
 #midi_editor .note {
     position: absolute;
-    background: black;
+    background: deepskyblue;
+    border: 1px solid black;
 }
