@@ -12,12 +12,14 @@
     border-bottom: 2px solid black;
 }
 
+
+
 #piano_roll .key,
 #midi_editor .row {
     clear: both;
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
-    height: 2em;
+    height: 30px;
     margin: 0px;
 }
 
@@ -51,11 +53,10 @@
 }
 
 #midi_editor .measure {
-    width: 24%;
-    float:left;
     border-right: 2px solid gray;
     margin: 0;
     height: 100%;
+    display: table-cell;
 }
 #midi_editor .measure:nth-child(odd) {
     background-color: #9090a9;
@@ -67,11 +68,10 @@
 #midi_editor .measure .beat {
     display: inline-block;
     margin: 0;
-    padding: 0;
-    min-width: 24.7%;
-    float:left;
     border-right: 1px solid darkgray;
-    height: 100%;
+    height: 30px;
+    width: 40px;
+    cursor: pointer;
 }
 #midi_editor .measure .beat:hover {
     background-color: #dddd88;
@@ -80,4 +80,16 @@
 #midi_editor .note {
     position: absolute;
     background: black;
+}
+
+#midi_editor .octave {
+    display: table;
+}
+#midi_editor .key {
+    display: table-row;
+}
+
+#zoomSelector {
+    width: 200px;
+    display: inline-block;
 }

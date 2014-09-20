@@ -9,11 +9,38 @@ var pianoRollDirective = function ($compile,
         },
         templateUrl:"/src/piano-roll/piano-roll.html",
         link: function ($scope) {
-
+            $rootScope.midiData = [{}];
 
             $scope.beatsPerMeasure = 4;
             $scope.numMeasures = 4;
 
+            $scope.addNote = function(measure, beatNum, key, octave) {
+                var beat = measure * $scope.beatsPerMeasure + beatNum;
+                var pitch = noteToMidi(key.name, octave);
+
+                if (!$rootScope.midiData[0][beat]) {
+                    $rootScope.midiData[0][beat] = [];
+                }
+                $rootScope.midiData[0][beat] = $rootScope.midiData[0][beat].concat(
+                {
+                    "type": "note",
+                    "pitch": pitch,
+                    "velocity": 100,
+                    "duration": 1,
+                    "channel": 1
+                });
+            };
+
+            $scope.zoomLevel = 100;
+            $scope.noteStyle = {
+                width: 40 + "px"
+            };
+            $scope.$watch("zoomLevel", function() {
+                var editorWidth = $("#midi_editor").width();
+                var newRowWidth = editorWidth * ($scope.zoomLevel / 100);
+                var numBeats = $scope.numMeasures * $scope.beatsPerMeasure;
+                $scope.noteStyle.width = newRowWidth / numBeats + "px"
+            });
 
 
             $scope.getPosition = function () {
@@ -59,7 +86,6 @@ var pianoRollDirective = function ($compile,
                     ]
                 }
             ];
-
 
             $scope.keys = [
                 {
@@ -126,7 +152,7 @@ var pianoRollDirective = function ($compile,
             $scope.getNumber = function (num) {
                 var array = [];
                 for (var i=0; i < num; i++) {
-                    array[i] = 1;
+                    array[i] = i;
                 }
                 return array;
             };
