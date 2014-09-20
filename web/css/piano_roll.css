@@ -4,15 +4,30 @@
     min-width: 90px;
     max-width: 90px;
     float: left;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#midi_editor {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #piano_roll .octave,
 #midi_editor .octave {
     list-style-type: none;
     border-bottom: 2px solid black;
+    margin-bottom: 0px;
 }
-
-
 
 #piano_roll .key,
 #midi_editor .row {
@@ -79,8 +94,10 @@
 
 #midi_editor .note {
     position: absolute;
-    background: black;
+    background: deepskyblue;
+    border: 1px solid black;
 }
+
 
 #midi_editor .octave {
     display: table;

@@ -3,29 +3,29 @@
 // Does not support tempo/time-signature changes (yet)
 var Track = function (midiTrackData) {
     var _track = {
-        beats: [],
+        notes: [],
         bpm: 120,
         timeSignature: [4,4]
     };
 
-    for (var i in midiTrackData) {
-        var beatData = midiTrackData[i];
+    for (var beatTime in midiTrackData) {
+        if (midiTrackData.hasOwnProperty(beatTime)) {
+            var beatData = midiTrackData[beatTime];
 
-        var beat = [];
-        for (var j=0; j < beatData.length; j++) {
-            var noteData = beatData[j];
+            for (var j=0; j < beatData.length; j++) {
+                var noteData = beatData[j];
 
-            if (noteData.type === "note") {
-                beat.push(new Note(noteData));
-            }
-            else if (noteData.type === "tempo") {
-                _track.bpm = noteData.bpm;
-            }
-            else if (noteData.type === "time signature") {
-                _track.timeSignature = [noteData.numerator, noteData.denominator];
+                if (noteData.type === "note") {
+                    _track.notes[_track.notes.length] = new Note(noteData, beatTime);
+                }
+                else if (noteData.type === "tempo") {
+                    _track.bpm = noteData.bpm;
+                }
+                else if (noteData.type === "time signature") {
+                    _track.timeSignature = [noteData.numerator, noteData.denominator];
+                }
             }
         }
-        _track.beats.push(beat);
     }
 
     return _track;
