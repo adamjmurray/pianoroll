@@ -36,7 +36,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
 
 
                 var octaveContainer = $("#layout .octave:nth-child("+octave+")");
-                var pitchRow = octaveContainer.find("."+pitch);
+                var pitchRow = octaveContainer.find("[title='"+pitch+"']");
 
                 // Assumes beats in the layout are 1/4 notes
                 var wholeNoteWidth = $("#layout .measure:first").width();
