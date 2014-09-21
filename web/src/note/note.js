@@ -22,8 +22,10 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var pitchData = midiToNote(midiNote);
                 $scope.data.beat = beat;
                 $scope.data.pitch = pitchData[0];
-                $scope.data.octave = pitchData[1];
+                $scope.data.octave = pitchData[1]+1;
                 $scope.data.midiValue = midiNote;
+
+                $elem.attr("title", $scope.data.pitch+$scope.data.octave);
             }
 
             $scope.getPosition = function() {
@@ -34,8 +36,8 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var duration = $scope.data.duration;
 
 
-                var octaveContainer = $("#layout .octave:nth-child("+($rootScope.numOctaves - octave - 1)+")");
-                var pitchRow = octaveContainer.find("[title='"+pitch+"']");
+                var octaveContainer = $("#layout .octave:nth-child("+($rootScope.numOctaves - octave)+")");
+                var pitchRow = octaveContainer.find("[data-pitch='"+pitch+"']");
 
                 // TODO: use velocity to change the color of the element
 
