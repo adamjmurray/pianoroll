@@ -28,6 +28,14 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 $elem.attr("title", $scope.data.pitch+$scope.data.octave);
             }
 
+            $scope.deleteNote = function () {
+                for (var i=0; i<$rootScope.track.notes.length; i++) {
+                    if ($rootScope.track.notes[i] == $scope.data) {
+                        $rootScope.track.notes.splice(i, 1);
+                    }
+                }
+            };
+
             $scope.getPosition = function() {
                 var beat = $scope.data.beat;
                 var pitch = $scope.data.pitch;
