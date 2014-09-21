@@ -41,7 +41,7 @@ var midiToNote = function (midiNumber) {
 };
 
 var noteToMidi = function (note, octave) {
-    var midi = (octave) * _NOTE_COUNT;
+    var midi = (octave+1) * _NOTE_COUNT;
     midi += nameToNumber(note);
 
     return midi;
