@@ -63,7 +63,8 @@
     box-sizing: border-box;
     position: relative;
 }
-#midi_editor .row:hover .measure {
+#midi_editor .row:hover .measure,
+#midi_editor .row .measure.hover {
     background-color: #999;
 }
 
@@ -100,7 +101,9 @@
 #midi_editor .note:hover {
     background-color: #00498f;
 }
-
+#midi_editor .note.selected {
+    border: 4px solid #dddd88;
+}
 
 #midi_editor .octave {
     display: table;
