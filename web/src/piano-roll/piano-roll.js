@@ -50,9 +50,9 @@ var pianoRollDirective = function ($compile,
                 }
             ];
 
-            $scope.track = Track($rootScope.midiData[0]);
+            $rootScope.track = Track($rootScope.midiData[0]);
 
-            $scope.beatsPerMeasure = $scope.track.timeSignature[0];
+            $scope.beatsPerMeasure = $rootScope.track.timeSignature[0];
             $scope.numMeasures = 4;
 
             $scope.keys = [];
