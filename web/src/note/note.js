@@ -42,7 +42,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var pitchData = midiToNote(midiNote);
                 $scope.data.beat = beat;
                 $scope.data.pitch = pitchData[0];
-                $scope.data.octave = pitchData[1]+1;
+                $scope.data.octave = pitchData[1];
                 $scope.data.midiValue = midiNote;
 
                 $elem.attr("title", $scope.data.pitch+$scope.data.octave);
