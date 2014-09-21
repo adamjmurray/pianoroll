@@ -44,6 +44,7 @@ var fileInputDirective = function ($compile,
                     output += '<br/><br/><pre>' + JSON.stringify(midi.tracks, null, 2) + '</pre>';
                     //document.getElementById('list').innerHTML = output;
                     $rootScope.midiData = midi.tracks;
+                    $rootScope.$digest();
                 });
 
             }
