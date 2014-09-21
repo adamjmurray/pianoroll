@@ -35,7 +35,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var duration = $scope.data.duration;
 
 
-                var octaveContainer = $("#layout .octave:nth-child("+octave+")");
+                var octaveContainer = $("#layout .octave:nth-last-child("+octave+")");
                 var pitchRow = octaveContainer.find("[title='"+pitch+"']");
 
                 // Assumes beats in the layout are 1/4 notes
