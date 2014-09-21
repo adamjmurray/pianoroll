@@ -14,7 +14,27 @@ var noteDirective = function($compile, $rootScope, $timeout) {
             $noteDiv.draggable({ containment: "#midi_editor", distance: 10, grid: [1, 30], stop: onDrag});
             $noteDiv.resizable({ containment: "#midi_editor", handles: "e", stop: onResize});
 
+            var getRow = function() {
+                return $("#layout .row[title='"+$elem.attr("title")+"']");
+            };
+
+            $noteDiv.hover(function() {
+                getRow().find(".measure").addClass("hover");
+            },
+            function () {
+                getRow().find(".measure").removeClass("hover");
+            });
+
+            $noteDiv.click(function() {
+                $(".note.selected").removeClass("selected");
+                $noteDiv.addClass("selected");
+            });
+            $("#layout").click(function() {
+                $noteDiv.removeClass("selected");
+            });
+
             function onDrag(event, ui) {
+                getRow().find(".measure").removeClass("hover");
                 var totalHeight = $("#layout").height();
 
                 var beat = ui.position.left/$rootScope.noteWidth;
