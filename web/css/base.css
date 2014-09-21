@@ -7,12 +7,12 @@ body {
     float: left;
 }
 
-#volumeLevel {
+.transport .volumeLevel {
     width: 150px;
     display: inline-block;
 }
 
-#tempo {
+.transport .tempo {
     width: 50px;
 }
 

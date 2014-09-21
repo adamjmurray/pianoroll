@@ -11,21 +11,18 @@ var transportDirective = function($compile, $rootScope, $timeout) {
                 $rootScope.playbackEngine = new SimpleSynthPlayer();
             }
 
-            var $playBtn = $elem.find('.play');
-
-            $playBtn.click(function() {
-                $rootScope.playbackEngine.play( $rootScope.track.notes, $rootScope.volume );
-            });
+            var $playBtn = $elem.find(".play");
 
             $scope.volumeLevel = 80;
+            $scope.bpm = 120;
 
-            $scope.$watch("volumeLevel", function() {
-                $rootScope.volume = $scope.volumeLevel/100; // volume goes from 0.0 to 1.0
+            $playBtn.click(function() {
+                $rootScope.playbackEngine.play( $rootScope.track.notes, $scope.bpm, $scope.volumeLevel/100 );
             });
 
-
+           var $tempoInput = $elem.find(".tempo");
+           $tempoInput.numeric(); // prevent non-numeric values from being input
         }
-
     }
 };
 
