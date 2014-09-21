@@ -100,6 +100,7 @@
 }
 #midi_editor .note:hover {
     background-color: #00498f;
+    cursor: move;
 }
 #midi_editor .note.selected {
     border: 4px solid #dddd88;
