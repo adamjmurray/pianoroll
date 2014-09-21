@@ -51,6 +51,12 @@ var fileInputDirective = function ($compile,
 
             function handleDragEnter(evt) {
                 $dropZoneIndicator.show();
+
+                // Have to compensate for the current scroll position, otherwise the dropzone gets stuck offscreen
+                // at the top of the html document
+                var topOffset = $('body').scrollTop();
+                $dropZoneIndicator.css('top', topOffset);
+
                 evt.stopPropagation();
                 evt.preventDefault();
                 return false;
