@@ -14,8 +14,16 @@ var transportDirective = function($compile, $rootScope, $timeout) {
             var $playBtn = $elem.find('.play');
 
             $playBtn.click(function() {
-                $rootScope.playbackEngine.play( $rootScope.track.notes );
+                $rootScope.playbackEngine.play( $rootScope.track.notes, $rootScope.volume );
             });
+
+            $scope.volumeLevel = 80;
+
+            $scope.$watch("volumeLevel", function() {
+                $rootScope.volume = $scope.volumeLevel/100; // volume goes from 0.0 to 1.0
+            });
+
+
         }
 
     }

@@ -7,6 +7,15 @@ body {
     float: left;
 }
 
+#volumeLevel {
+    width: 150px;
+    display: inline-block;
+}
+
+#tempo {
+    width: 50px;
+}
+
 .drag_drop_help {
     padding: 10px;
     float: right;
@@ -32,5 +41,26 @@ body {
     border: 20px dashed darkblue;
     border-radius: 20px;
     height: 90%;
-    padding-top: 20%;
+
+    /* Vertically center the text: */
+
+    /* Internet Explorer 10 */
+    display:-ms-flexbox;
+    -ms-flex-pack:center;
+    -ms-flex-align:center;
+
+    /* Firefox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+
+    /* Safari, Opera, and Chrome */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+
+    /* W3C */
+    display:box;
+    box-pack:center;
+    box-align:center;
 }
