@@ -5,7 +5,7 @@
 
     <div id="piano_roll">
         <ul class="octave" ng-repeat="octave in getNumber(11) track by $index">
-            <li ng-repeat="key in keys" ng-class="key.keyClass" ng-attr-title="{{key.name}}">&nbsp;</li>
+            <li ng-repeat="key in keys" ng-class="key.keyClass" ng-attr-title="{{key.name+(11-octave-1)}}">&nbsp;</li>
         </ul>
     </div>
     <div id="midi_editor">
