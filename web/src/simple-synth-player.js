@@ -10,8 +10,11 @@ SimpleSynthPlayer = (function() {
         this.gainNode = gainNode;
     }
 
-    SimpleSynthPlayer.prototype.play = function(notes, volume) {
+    SimpleSynthPlayer.prototype.play = function(notes, bpm, volume) {
+        if(!bpm) bpm = 120;
         if(volume === undefined) volume = 0.8;
+
+        this.beatLength = 60/bpm;
         this.gainNode.gain.value = volume;
 
         var _this = this;
@@ -42,8 +45,8 @@ SimpleSynthPlayer = (function() {
             // TODO: start time should be based on BPM
             // I'll assume 120 BPM for now, which means each beat is half a second and we can just divide by 2
 
-            var startTime = timeOffset + note.beat / 2;
-            var endTime = startTime + note.duration / 2;
+            var startTime = timeOffset + note.beat * this.beatLength;
+            var endTime = startTime + note.duration * this.beatLength;
 
             oscillator.start(startTime);
             oscillator.stop(endTime);
