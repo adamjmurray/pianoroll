@@ -30,19 +30,42 @@ var pianoRollDirective = function ($compile,
                 };
             };
 
-            $scope.zoomLevel = 100;
+            $scope.horizontalZoomLevel = 100;
             $scope.noteStyle = {
-                width: 40 + "px"
+                width: 40 + "px",
+                height: 28 + "px"
             };
             $rootScope.noteWidth = 40;
 
-            $scope.$watch("zoomLevel", function() {
-                var editorWidth = $("#midi_editor").width();
-                var newRowWidth = editorWidth * ($scope.zoomLevel / 100);
-                var numBeats = $scope.numMeasures * $scope.beatsPerMeasure;
-                var noteWidth = newRowWidth / numBeats;
-                $scope.noteStyle.width = noteWidth + "px";
-                $rootScope.noteWidth = noteWidth;
+            $scope.verticalZoomLevel = 100;
+
+            $scope.rowStyle = {
+                height: 30 + "px"
+            };
+            $rootScope.rowHeight = 30;
+
+            $scope.$watch("horizontalZoomLevel", function() {
+                if ($scope.horizontalZoomLevel) {
+                    var editorWidth = $("#midi_editor").width();
+                    var newRowWidth = editorWidth * ($scope.horizontalZoomLevel / 100);
+                    var numBeats = $scope.numMeasures * $scope.beatsPerMeasure;
+                    var noteWidth = newRowWidth / numBeats;
+                    $scope.noteStyle.width = noteWidth + "px";
+                    $rootScope.noteWidth = noteWidth;
+                }
+            });
+
+            $scope.$watch("verticalZoomLevel", function() {
+                if ($scope.verticalZoomLevel) {
+                    var rowHeight = parseInt(($scope.verticalZoomLevel / 100) * 30);
+                    $scope.rowStyle.height = rowHeight + "px";
+                    $scope.noteStyle.height = (rowHeight - 2) + "px";
+                    $rootScope.rowHeight = rowHeight;
+                    $(".note").draggable("option", "grid", [1, rowHeight]);
+                    if (!$rootScope.$$phase){
+                        $rootScope.$digest();
+                    }
+                }
             });
 
             $rootScope.midiData = [
