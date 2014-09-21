@@ -34,7 +34,6 @@
     clear: both;
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
-    height: 30px;
     margin: 0px;
 }
 
@@ -72,7 +71,8 @@
     border-right: 2px solid gray;
     margin: 0;
     height: 100%;
-    display: table-cell;
+    display: inline-block;
+    white-space: nowrap;
 }
 #midi_editor .measure:nth-child(odd) {
     background-color: #9090a9;
@@ -85,7 +85,6 @@
     display: inline-block;
     margin: 0;
     border-right: 1px solid darkgray;
-    height: 30px;
     width: 40px;
     cursor: pointer;
 }
@@ -107,13 +106,17 @@
 }
 
 #midi_editor .octave {
-    display: table;
+
 }
 #midi_editor .key {
-    display: table-row;
+    white-space: nowrap;
 }
 
-#zoomSelector {
+#horizontalZoomSelector {
+    width: 200px;
+    display: inline-block;
+}
+#verticalZoomSelector {
     width: 200px;
     display: inline-block;
 }
