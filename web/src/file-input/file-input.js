@@ -11,6 +11,8 @@ var fileInputDirective = function ($compile,
         templateUrl:"/src/file-input/file-input.html",
         link: function ($scope, element) {
 
+            var $dropZoneIndicator = $('.drop_indicator');
+
             // Check for the various File API support.
             if ( !(window.File && window.FileReader && window.FileList && window.Blob) ) {
                 alert('The File APIs are not fully supported in this browser.');
@@ -19,6 +21,7 @@ var fileInputDirective = function ($compile,
             function handleFileSelect(evt) {
                 evt.stopPropagation();
                 evt.preventDefault();
+                $dropZoneIndicator.hide();
 
                 var files = evt.dataTransfer.files; // FileList object.
                 var file = files[0];
@@ -45,15 +48,30 @@ var fileInputDirective = function ($compile,
 
             }
 
+            function handleDragEnter(evt) {
+                $dropZoneIndicator.show();
+                evt.stopPropagation();
+                evt.preventDefault();
+                return false;
+            }
+
             function handleDragOver(evt) {
                 evt.stopPropagation();
                 evt.preventDefault();
                 evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
             }
 
+            function handleDragLeave(evt) {
+                $dropZoneIndicator.hide();
+                evt.stopPropagation();
+                evt.preventDefault();
+            }
+
             // Setup the dnd listeners.
-            var dropZone = $('#drop_zone')[0];
+            var dropZone = $('body')[0];
+            dropZone.addEventListener('dragenter', handleDragEnter, false);
             dropZone.addEventListener('dragover', handleDragOver, false);
+            $dropZoneIndicator.bind('dragleave', handleDragLeave);
             dropZone.addEventListener('drop', handleFileSelect, false);
 
         }

@@ -4,4 +4,33 @@ body {
 
 .transport {
     padding: 10px;
+    float: left;
+}
+
+.drag_drop_help {
+    padding: 10px;
+    float: right;
+}
+
+.drop_indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,255,255,0.75);
+    z-index: 100;
+    display: none;
+}
+
+.drop_indicator div {
+    color: darkblue;
+    font-size: 72px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px;
+    border: 20px dashed darkblue;
+    border-radius: 20px;
+    height: 90%;
+    padding-top: 20%;
 }
