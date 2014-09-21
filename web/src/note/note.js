@@ -70,7 +70,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 // TODO: use velocity to change the color of the element
 
                 var noteWidth = duration * $rootScope.noteWidth;
-                var noteHeight = pitchRow.height(); // and some way of knowing the height of a "pitch row" in the piano roll
+                var noteHeight = $rootScope.rowHeight; // and some way of knowing the height of a "pitch row" in the piano roll
                 var x = $rootScope.noteWidth * beat;
                 var y = pitchRow.position().top;
 
