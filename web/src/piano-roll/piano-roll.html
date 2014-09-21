@@ -1,21 +1,21 @@
 <div id="container">
     <div>
-        Zoom <input id="horizontalZoomSelector" type="range" min="1" max="200" ng-model="horizontalZoomLevel">
+        Horizontal Zoom <input id="horizontalZoomSelector" type="range" min="1" max="200" ng-model="horizontalZoomLevel">
     </div>
     <div>
-        Zoom <input id="verticalZoomSelector" type="range" min="1" max="200" ng-model="verticalZoomLevel">
+        Vertical Zoom <input id="verticalZoomSelector" type="range" min="1" max="200" ng-model="verticalZoomLevel">
     </div>
 
     <div id="main">
     <div id="piano_roll">
         <ul class="octave" ng-repeat="octave in getNumber(11) track by $index">
-            <li ng-repeat="key in keys" ng-class="key.keyClass" ng-style="rowStyle" ng-attr-title="{{key.name+(11-octave-1)}}">&nbsp;</li>
+            <li ng-repeat="key in keys" ng-class="key.keyClass" ng-style="pianoRollNoteStyle" ng-attr-title="{{key.name+(11-octave-1)}}">&nbsp;</li>
         </ul>
     </div>
     <div id="midi_editor">
         <div id="layout">
-            <div class="octave" ng-repeat="octave in getNumber(11) track by $index">
-                <div class="key" ng-repeat="key in keys" ng-class="key.rowClass" ng-attr-title="{{key.name+(11-octave-1)}}" data-pitch="{{key.name}}" ng-style="rowStyle">
+            <div class="octave" ng-repeat="octave in getNumber(11) track by $index" ng-style="noteWidthStyle">
+                <div class="key" ng-repeat="key in keys" ng-class="key.rowClass" ng-attr-title="{{key.name+(11-octave-1)}}" data-pitch="{{key.name}}" ng-style="noteRowStyle">
                     <div ng-repeat="measure in getNumber(numMeasures) track by $index" class="measure" ng-style="rowStyle">
                         <div ng-repeat="beat in getNumber(beatsPerMeasure) track by $index" class="beat" ng-dblclick="addNote(measure, beat, key, octave)" ng-style="noteStyle">&nbsp;</div>
                     </div>
