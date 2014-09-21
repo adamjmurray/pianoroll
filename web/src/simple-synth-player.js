@@ -1,10 +1,19 @@
 SimpleSynthPlayer = (function() {
 
     function SimpleSynthPlayer() {
-        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        var gainNode = audioCtx.createGain();
+        gainNode.connect(audioCtx.destination);
+
+        this.audioCtx = audioCtx;
+        this.gainNode = gainNode;
     }
 
-    SimpleSynthPlayer.prototype.play = function(notes) {
+    SimpleSynthPlayer.prototype.play = function(notes, volume) {
+        if(volume === undefined) volume = 0.2;
+        this.gainNode.gain.value = volume;
+
         var _this = this;
         var timeOffset = this.audioCtx.currentTime + 0.1; // plus a little fudge factor so we don't lose the first note (not sure if that can even be an issue, just paranoid)
 
@@ -35,7 +44,7 @@ SimpleSynthPlayer = (function() {
 
         oscillator.start(startTime);
         oscillator.stop(endTime);
-        oscillator.connect(this.audioCtx.destination);
+        oscillator.connect(this.gainNode);
     }
 
     return SimpleSynthPlayer;

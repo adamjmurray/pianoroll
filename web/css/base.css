@@ -7,6 +7,15 @@ body {
     float: left;
 }
 
+#volumeLevel {
+    width: 150px;
+    display: inline-block;
+}
+
+#tempo {
+    width: 50px;
+}
+
 .drag_drop_help {
     padding: 10px;
     float: right;
