@@ -12,8 +12,8 @@
         <div id="layout">
             <div class="octave" ng-repeat="octave in getNumber(11) track by $index">
                 <div class="key" ng-repeat="key in keys" ng-class="key.rowClass" ng-attr-title="{{key.name+(11-octave-1)}}" data-pitch="{{key.name}}">
-                    <div ng-repeat="i in getNumber(numMeasures) track by $index" class="measure">
-                        <div ng-repeat="i in getNumber(beatsPerMeasure) track by $index" class="beat" ng-click="addNote(measure, beat, key, octave)" ng-style="noteStyle">&nbsp;</div>
+                    <div ng-repeat="measure in getNumber(numMeasures) track by $index" class="measure">
+                        <div ng-repeat="beat in getNumber(beatsPerMeasure) track by $index" class="beat" ng-dblclick="addNote(measure, beat, key, octave)" ng-style="noteStyle">&nbsp;</div>
                     </div>
                 </div>
             </div>

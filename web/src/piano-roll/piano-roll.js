@@ -11,20 +11,23 @@ var pianoRollDirective = function ($compile,
         link: function ($scope) {
 
             $scope.addNote = function(measure, beatNum, key, octave) {
-                var beat = measure * $scope.beatsPerMeasure + beatNum;
-                var pitch = noteToMidi(key.name, octave);
+                octave = ($rootScope.numOctaves - 1) - (octave);
+                var beat = (measure) * $scope.beatsPerMeasure + beatNum;
+                var midiValue = noteToMidi(key.name, octave);
 
                 if (!$rootScope.midiData[0][beat]) {
                     $rootScope.midiData[0][beat] = [];
                 }
-                $rootScope.midiData[0][beat] = $rootScope.midiData[0][beat].concat(
-                    {
-                        "type": "note",
-                        "pitch": pitch,
-                        "velocity": 100,
-                        "duration": 1,
-                        "channel": 1
-                    });
+                $rootScope.track.notes[$rootScope.track.notes.length] = {
+                    "type": "note",
+                    "beat": beat,
+                    "pitch": key.name,
+                    "midiValue": midiValue,
+                    "velocity": 100,
+                    "octave": octave,
+                    "duration": 1,
+                    "channel": 1
+                };
             };
 
             $scope.zoomLevel = 100;
@@ -85,7 +88,13 @@ var pianoRollDirective = function ($compile,
             ];
 
             $rootScope.track = Track($rootScope.midiData[0]);
-            console.log($rootScope.track);
+
+            $rootScope.$watch("midiData", function (newValue, oldValue){
+               if (newValue != oldValue) {
+                   $rootScope.track = Track($rootScope.midiData[0]);
+               }
+            });
+
             $scope.beatsPerMeasure = $rootScope.track.timeSignature[0];
             $scope.numMeasures = 4;
             $rootScope.numOctaves = 11;
