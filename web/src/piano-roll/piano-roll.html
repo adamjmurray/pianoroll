@@ -5,6 +5,8 @@
     <div>
         Zoom <input id="verticalZoomSelector" type="range" min="1" max="200" ng-model="verticalZoomLevel">
     </div>
+
+    <div id="main">
     <div id="piano_roll">
         <ul class="octave" ng-repeat="octave in getNumber(11) track by $index">
             <li ng-repeat="key in keys" ng-class="key.keyClass" ng-style="rowStyle" ng-attr-title="{{key.name+(11-octave-1)}}">&nbsp;</li>
@@ -25,5 +27,7 @@
             <note data="note" ng-repeat="note in $root.track.notes" title="{{note.pitch+note.octave}}" tabindex="-1"></note>
         </div>
     </div>
+    </div>
+
     <div style="clear:both;"></div>
 </div>
