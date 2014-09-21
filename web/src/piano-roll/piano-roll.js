@@ -9,6 +9,12 @@ var pianoRollDirective = function ($compile,
         },
         templateUrl:"/src/piano-roll/piano-roll.html",
         link: function ($scope) {
+            $("body").keydown(function(event) {
+                if (event.keyCode === 32) {
+                    event.preventDefault();
+                    $rootScope.PLAY();
+                }
+            });
 
             $scope.addNote = function(measure, beatNum, key, octave) {
                 octave = ($rootScope.numOctaves - 1) - (octave);

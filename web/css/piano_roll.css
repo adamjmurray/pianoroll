@@ -1,6 +1,12 @@
 body {
     overflow: hidden;
 }
+#main {
+    position:absolute;
+    height: 89%;
+    width: 100%;
+    overflow-y: scroll;
+}
 
 #piano_roll {
     padding: 0;
@@ -24,12 +30,6 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-#main {
-    position:absolute;
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
 }
 
 #piano_roll .octave,

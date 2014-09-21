@@ -22,6 +22,10 @@ var transportDirective = function($compile, $rootScope, $timeout) {
 
            var $tempoInput = $elem.find(".tempo");
            $tempoInput.numeric(); // prevent non-numeric values from being input
+
+           $rootScope.PLAY = function() {
+               $playBtn.click();
+           }
         }
     }
 };
