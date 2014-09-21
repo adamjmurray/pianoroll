@@ -9,6 +9,12 @@ var pianoRollDirective = function ($compile,
         },
         templateUrl:"/src/piano-roll/piano-roll.html",
         link: function ($scope) {
+            $("body").keydown(function(event) {
+                if (event.keyCode === 32) {
+                    event.preventDefault();
+                    $rootScope.PLAY();
+                }
+            });
 
             $scope.addNote = function(measure, beatNum, key, octave) {
                 octave = ($rootScope.numOctaves - 1) - (octave);
@@ -35,6 +41,10 @@ var pianoRollDirective = function ($compile,
                 width: 40 + "px",
                 height: 28 + "px"
             };
+            $scope.pianoRollNoteStyle = {
+                height: 30 + "px"
+            };
+
             $rootScope.noteWidth = 40;
 
             $scope.verticalZoomLevel = 100;
@@ -43,13 +53,22 @@ var pianoRollDirective = function ($compile,
                 height: 30 + "px"
             };
             $rootScope.rowHeight = 30;
+            $scope.noteRowStyle = {
+                height: 30 + "px",
+                width: "auto"
+            };
+            $scope.noteWidthStyle= {
+                width: "auto"
+            };
+
+
 
             $scope.$watch("horizontalZoomLevel", function() {
                 if ($scope.horizontalZoomLevel) {
-                    var editorWidth = $("#midi_editor").width();
-                    var newRowWidth = editorWidth * ($scope.horizontalZoomLevel / 100);
-                    var numBeats = $scope.numMeasures * $scope.beatsPerMeasure;
-                    var noteWidth = newRowWidth / numBeats;
+                    var noteWidth = ($scope.horizontalZoomLevel / 100) * 40;
+                    var newRowWidth = ($scope.numMeasures * ((noteWidth * $scope.beatsPerMeasure) + 2));
+                    $scope.noteRowStyle.width = newRowWidth + "px";
+                    $scope.noteWidthStyle.width= newRowWidth + "px";
                     $scope.noteStyle.width = noteWidth + "px";
                     $rootScope.noteWidth = noteWidth;
                 }
@@ -58,8 +77,10 @@ var pianoRollDirective = function ($compile,
             $scope.$watch("verticalZoomLevel", function() {
                 if ($scope.verticalZoomLevel) {
                     var rowHeight = parseInt(($scope.verticalZoomLevel / 100) * 30);
-                    $scope.rowStyle.height = rowHeight + "px";
+                    $scope.rowStyle.height = (rowHeight - 2) + "px";
                     $scope.noteStyle.height = (rowHeight - 2) + "px";
+                    $scope.noteRowStyle.height= rowHeight + "px";
+                    $scope.pianoRollNoteStyle.height = rowHeight + "px";
                     $rootScope.rowHeight = rowHeight;
                     $(".note").draggable("option", "grid", [1, rowHeight]);
                     if (!$rootScope.$$phase){
