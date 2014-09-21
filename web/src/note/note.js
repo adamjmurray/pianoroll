@@ -11,7 +11,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
 
             // TODO: dragging the note around should update the model
             var $noteDiv = $elem.children().first();
-            $noteDiv.draggable({ containment: "#midi_editor", distance: 10, grid: [1, 30], stop: onDrag});
+            $noteDiv.draggable({ containment: "#midi_editor", distance: 10, grid: [1, $rootScope.rowHeight], stop: onDrag});
             $noteDiv.resizable({ containment: "#midi_editor", handles: "e", stop: onResize});
 
             var getRow = function() {
@@ -38,7 +38,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var totalHeight = $("#layout").height();
 
                 var beat = ui.position.left/$rootScope.noteWidth;
-                var midiNote = parseInt((((totalHeight - ui.position.top) / 30) -1));
+                var midiNote = parseInt((((totalHeight - ui.position.top) / $rootScope.rowHeight) -1));
                 var pitchData = midiToNote(midiNote);
                 $scope.data.beat = beat;
                 $scope.data.pitch = pitchData[0];
