@@ -34,6 +34,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
             });
 
             function onDrag(event, ui) {
+                getRow().find(".measure").removeClass("hover");
                 var totalHeight = $("#layout").height();
 
                 var beat = ui.position.left/$rootScope.noteWidth;
