@@ -28,22 +28,26 @@ var noteDirective = function($compile, $rootScope, $timeout) {
             }
 
             $scope.getPosition = function() {
-                var beatIndex = $scope.data.beat;
+                var beat = $scope.data.beat;
                 var pitch = $scope.data.pitch;
+                var octave = $scope.data.octave;
                 var velocity = $scope.data.velocity;
                 var duration = $scope.data.duration;
 
-                // TODO: once octaves are implemented in the html, filter by octave as well
-                var pitchRow = $("#layout ."+pitch);
+
+                var octaveContainer = $("#layout .octave:nth-child("+octave+")");
+                var pitchRow = octaveContainer.find("."+pitch);
 
                 // Assumes beats in the layout are 1/4 notes
                 var wholeNoteWidth = $("#layout .measure:first").width();
+
+                var beatPosition = beat / $rootScope.track.measureDuration;
 
                 // TODO: use velocity to change the color of the element
 
                 var noteWidth = duration * wholeNoteWidth;
                 var noteHeight = pitchRow.height(); // and some way of knowing the height of a "pitch row" in the piano roll
-                var x = 0; // TODO: calculate x position from the beat
+                var x = wholeNoteWidth * beatPosition;
                 var y = pitchRow.position().top;
 
                 return {

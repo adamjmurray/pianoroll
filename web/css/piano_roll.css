@@ -97,6 +97,9 @@
     background: deepskyblue;
     border: 1px solid black;
 }
+#midi_editor .note:hover {
+    background-color: #00498f;
+}
 
 
 #midi_editor .octave {

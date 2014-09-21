@@ -5,7 +5,8 @@ var Track = function (midiTrackData) {
     var _track = {
         notes: [],
         bpm: 120,
-        timeSignature: [4,4]
+        timeSignature: [4,4],
+        measureDuration: 0
     };
 
     for (var beatTime in midiTrackData) {
@@ -20,6 +21,7 @@ var Track = function (midiTrackData) {
                 }
                 else if (noteData.type === "tempo") {
                     _track.bpm = noteData.bpm;
+                    _track.measureDuration = noteDuration(1, _track.bpm);
                 }
                 else if (noteData.type === "time signature") {
                     _track.timeSignature = [noteData.numerator, noteData.denominator];
@@ -27,6 +29,5 @@ var Track = function (midiTrackData) {
             }
         }
     }
-
     return _track;
 };
