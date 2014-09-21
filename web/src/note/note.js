@@ -34,8 +34,8 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var duration = $scope.data.duration;
 
 
-                var octaveContainer = $("#layout .octave:nth-child("+($rootScope.numOctaves - octave - 1)+")");
-                var pitchRow = octaveContainer.find("[title='"+pitch+"']");
+                var octaveContainer = $("#layout .octave:nth-child("+($rootScope.numOctaves - octave)+")");
+                var pitchRow = octaveContainer.find("[data-pitch='"+pitch+"']");
 
                 // TODO: use velocity to change the color of the element
 

@@ -38,7 +38,7 @@ var pianoRollDirective = function ($compile,
                 var newRowWidth = editorWidth * ($scope.zoomLevel / 100);
                 var numBeats = $scope.numMeasures * $scope.beatsPerMeasure;
                 var noteWidth = newRowWidth / numBeats;
-                $scope.noteStyle.width = noteWidth + "px"
+                $scope.noteStyle.width = noteWidth + "px";
                 $rootScope.noteWidth = noteWidth;
             });
 
@@ -85,7 +85,7 @@ var pianoRollDirective = function ($compile,
             ];
 
             $rootScope.track = Track($rootScope.midiData[0]);
-
+            console.log($rootScope.track);
             $scope.beatsPerMeasure = $rootScope.track.timeSignature[0];
             $scope.numMeasures = 4;
             $rootScope.numOctaves = 11;
