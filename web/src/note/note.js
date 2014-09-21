@@ -25,7 +25,7 @@ var noteDirective = function($compile, $rootScope, $timeout) {
                 var pitchRow = $("#layout ."+pitch);
 
                 // Assumes beats in the layout are 1/4 notes
-                var wholeNoteWidth = $("#layout .beat:first").width() * 4;
+                var wholeNoteWidth = $("#layout .measure:first").width();
 
                 // TODO: use velocity to change the color of the element
 
