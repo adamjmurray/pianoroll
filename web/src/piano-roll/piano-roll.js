@@ -41,7 +41,7 @@ var pianoRollDirective = function ($compile,
                 $scope.noteStyle.width = noteWidth + "px"
                 $rootScope.noteWidth = noteWidth;
             });
-            
+
             $rootScope.midiData = [
                 {
                     "0": [
@@ -96,20 +96,10 @@ var pianoRollDirective = function ($compile,
                 $scope.keys.push({
                     name: name,
                     keyClass: (function(){
-                        var str = name.slice(0,1);
-                        if (name.charAt(1) === '#') {
-                            str += " sharp";
-                        }
-
-                        return str+" key";
+                        return spellOut(name)+" key";
                     })(),
                     rowClass: (function(){
-                        var str = name.slice(0,1);
-                        if (name.charAt(1) === '#') {
-                            str += " sharp";
-                        }
-
-                        return str+" row";
+                        return spellOut(name)+" row";
                     })()
                 });
             }

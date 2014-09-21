@@ -47,6 +47,15 @@ var noteToMidi = function (note, octave) {
     return midi;
 };
 
+var spellOut = function (noteName) {
+    if (noteName.charAt(1) === "#") {
+        return noteName.slice(0,1) + " sharp";
+    }
+    else if (noteName.charAt(1) === "b") {
+        return noteName.slice(0,1) + " flat";
+    }
+};
+
 
 /*
  * Returns beat duration in seconds
