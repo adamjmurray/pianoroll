@@ -9,28 +9,18 @@ var pianoRollDirective = function ($compile,
         },
         templateUrl:"/src/piano-roll/piano-roll.html",
         link: function ($scope) {
-
-
-            $scope.beatsPerMeasure = 4;
-            $scope.numMeasures = 4;
-
-
-
-            $scope.getPosition = function () {
-                var beatWidth = 56;
-                var noteHeight = 30;
-
-                return {
-                    top: noteHeight * 5 + "px",
-                    left: beatWidth * 5 + "px",
-                    width: beatWidth + "px",
-                    height: noteHeight + "px"
-                }
-            };
-
-            $scope.midi = [
+            $rootScope.midiData = [
                 {
                     "0": [
+                        {
+                            "type": "tempo",
+                            "bpm": 120
+                        },
+                        {
+                            "type": "time signature",
+                            "numerator": 4,
+                            "denominator": 4
+                        },
                         {
                             "type": "note",
                             "pitch": 60,
@@ -39,7 +29,7 @@ var pianoRollDirective = function ($compile,
                             "channel": 1
                         }
                     ],
-                    "1.23214": [
+                    "1": [
                         {
                             "type": "note",
                             "pitch": 62,
@@ -60,69 +50,36 @@ var pianoRollDirective = function ($compile,
                 }
             ];
 
+            $scope.track = Track($rootScope.midiData[0]);
 
-            $scope.keys = [
-                {
-                    name: "B",
-                    keyClass: "B key",
-                    rowClass: "B row"
-                },
-                {
-                    name: "A#",
-                    keyClass: "A sharp key",
-                    rowClass: "A sharp row"
-                },
-                {
-                    name: "A",
-                    keyClass: "A key",
-                    rowClass: "A row"
-                },
-                {
-                    name: "G#",
-                    keyClass: "G sharp key",
-                    rowClass: "G sharp row"
-                },
-                {
-                    name: "G",
-                    keyClass: "G key",
-                    rowClass: "G row"
-                },
-                {
-                    name: "F#",
-                    keyClass: "F sharp key",
-                    rowClass: "F sharp row"
-                },
-                {
-                    name: "F",
-                    keyClass: "F key",
-                    rowClass: "F row"
-                },
-                {
-                    name: "E",
-                    keyClass: "E key",
-                    rowClass: "E row"
-                },
-                {
-                    name: "D#",
-                    keyClass: "D sharp key",
-                    rowClass: "D sharp row"
-                },
-                {
-                    name: "D",
-                    keyClass: "D key",
-                    rowClass: "D row"
-                },
-                {
-                    name: "C#",
-                    keyClass: "C sharp key",
-                    rowClass: "C sharp row"
-                },
-                {
-                    name: "C",
-                    keyClass: "C key",
-                    rowClass: "C row"
-                }
-            ];
+            $scope.beatsPerMeasure = $scope.track.timeSignature[0];
+            $scope.numMeasures = 4;
+
+            $scope.keys = [];
+            for (var i=_NOTE_COUNT-1; i >= 0; i--) {
+                var name = _NOTE_NAMES[i];
+
+                $scope.keys.push({
+                    name: name,
+                    keyClass: (function(){
+                        var str = name;
+                        if (name.charAt(1) === '#') {
+                            str += " sharp";
+                        }
+
+                        return str+" key";
+                    })(),
+                    rowClass: (function(){
+                        var str = name;
+                        if (name.charAt(1) === '#') {
+                            str += " sharp";
+                        }
+
+                        return str+" row";
+                    })()
+                });
+            }
+
             $scope.getNumber = function (num) {
                 var array = [];
                 for (var i=0; i < num; i++) {
